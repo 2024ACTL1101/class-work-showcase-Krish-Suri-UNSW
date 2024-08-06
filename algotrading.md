@@ -31,27 +31,22 @@ After meeting with the Trading Strategies Team, you were asked to include costs,
 
 Start by running the provided code cells in the "Data Loading" section to generate a DataFrame containing AMD stock closing data. This will serve as the basis for your trading decisions. First, create a data frame named `amd_df` with the given closing prices and corresponding dates. 
 
-```{r load-data}
-
+```r
 # Load data from CSV file
 amd_df <- read.csv("AMD.csv")
-
 # Convert the date column to Date type and Adjusted Close as numeric
 amd_df$date <- as.Date(amd_df$Date)
 amd_df$close <- as.numeric(amd_df$Adj.Close)
-
 amd_df <- amd_df[, c("date", "close")]
 ```
 
-
-##Plotting the Data
+#### Plotting the Data
 Plot the closing prices over time to visualize the price movement.
-```{r plot}
+```r
 plot(amd_df$date, amd_df$close,'l')
 ```
 
-
-## Step 2: Trading Algorithm
+### Step 2: Trading Algorithm
 Implement the trading algorithm as per the instructions. You should initialize necessary variables, and loop through the dataframe to execute trades based on the set conditions.
 
 - Initialize Columns: Start by ensuring dataframe has columns 'trade_type', 'costs_proceeds' and 'accumulated_shares'.
@@ -63,7 +58,7 @@ Implement the trading algorithm as per the instructions. You should initialize n
 
 
 
-```{r trading}
+```r
 # Initialize columns for trade type, cost/proceeds, and accumulated shares in amd_df
 amd_df$trade_type <- NA
 amd_df$costs_proceeds <- NA  # Corrected column name
@@ -95,9 +90,9 @@ for (i in 1:nrow(amd_df)) {
 ```
 
 
-## Step 3: Customize Trading Period
+### Step 3: Customize Trading Period
 - Define a trading period you wanted in the past five years 
-```{r period}
+```r
 # The trading period I have chosen is the 2022 financial year (01/07/2021 to 30/06/2022)
 
 # Convert the date strings to Date type
@@ -140,14 +135,14 @@ for (i in 1:nrow(amd_df)) {
 ```
 
 
-## Step 4: Run Your Algorithm and Analyze Results
+### Step 4: Run Your Algorithm and Analyze Results
 After running your algorithm, check if the trades were executed as expected. Calculate the total profit or loss and ROI from the trades.
 
 - Total Profit/Loss Calculation: Calculate the total profit or loss from your trades. This should be the sum of all entries in the 'costs_proceeds' column of your dataframe. This column records the financial impact of each trade, reflecting money spent on buys as negative values and money gained from sells as positive values.
 - Invested Capital: Calculate the total capital invested. This is equal to the sum of the 'costs_proceeds' values for all 'buy' transactions. Since these entries are negative (representing money spent), you should take the negative sum of these values to reflect the total amount invested.
 - ROI Formula: $$\text{ROI} = \left( \frac{\text{Total Profit or Loss}}{\text{Total Capital Invested}} \right) \times 100$$
 
-```{r}
+```r
 # Initialise variables for ROI calculation
 expenditure <- 0
 profit <- 0
@@ -169,7 +164,7 @@ print(paste("The total profit is $", profit))
 print(paste("Therefore, the ROI is", roi, "%"))
 ```
 
-## Step 5a): Profit-Taking Strategy or Stop-Loss Mechanism (Choose 1)
+### Step 5: Profit-Taking Strategy or Stop-Loss Mechanisum (Choose 1)
 - Option 1: Implement a profit-taking strategy that you sell half of your holdings if the price has increased by a certain percentage (e.g., 20%) from the average purchase price.
 - Option 2: Implement a stop-loss mechanism in the trading strategy that you sell half of your holdings if the stock falls by a certain percentage (e.g., 20%) from the average purchase price. You don't need to buy 100 stocks on the days that the stop-loss mechanism is triggered.
 
@@ -180,7 +175,8 @@ I have chosen to implement option 1, selling half of the remaining holdings if t
 
 This logic may cause my programs results to differ from others, however I believe this most accurately reflects how the provided profit-taking strategy would actually be implemented
 
-```{r option}
+
+```r
 # Initialize columns for trade type, cost/proceeds, and accumulated shares in amd_df
 amd_df$trade_type <- NA
 amd_df$costs_proceeds <- NA  # Corrected column name
@@ -262,7 +258,7 @@ will now look at a period with a general trend of stable growth. To do so, I hav
 the year beginning in Q4 2022 (October 1 2022 - September 30 2023). Below is all the code
 requried for calculating P/L and ROI using step 2 & 5a's trading strategies
 
-```{r}
+```r
 # The trading period I have chosen is the year beginning in Q4 of 
 # 2022 (01/10/2022 to 30/09/2023)
 
@@ -411,11 +407,10 @@ print(paste("Therefore, the ROI is", roi, "%"))
 
 ```
 
-## Step 6: Summarize Your Findings
+
+### Step 6: Summarize Your Findings
 - Did your P/L and ROI improve over your chosen period?
 - Relate your results to a relevant market event and explain why these outcomes may have occurred.
-
-
 
 The overall downturn and share price instability during the 2021-22 financial year can be
 attributed to a decline in PC sales. During this period, high interests and inflation, and 
@@ -443,9 +438,3 @@ increase in share price before the end of the period.
 
 Overall, from both these examples we can observe that profit taking strategy should be utilised 
 in periods of uncertainty, where downturns in share price are considered likely.
-
-
-
-
-
-
