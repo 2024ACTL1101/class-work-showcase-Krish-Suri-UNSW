@@ -91,7 +91,8 @@ for (i in 1:nrow(amd_df)) {
 
 
 ### Step 3: Customize Trading Period
-- Define a trading period you wanted in the past five years 
+- Define a trading period you wanted in the past five years
+  
 ```r
 # The trading period I have chosen is the 2022 financial year (01/07/2021 to 30/06/2022)
 
